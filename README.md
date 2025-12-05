@@ -2,7 +2,7 @@
 
 A fun, mobile-first drag-and-drop game that introduces programming concepts through interactive puzzle-solving. Perfect as an entry-level challenge for coding bootcamp candidates!
 
-## 🎮 [Play Now!](https://yourusername.github.io/proj-robot-move/)
+## 🎮 [Play Now!](https://vyaron.github.io/CodingAcademy-RobotGame/)
 
 ## 📱 Features
 
