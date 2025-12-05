@@ -42,7 +42,7 @@ export async function executeProgram() {
         // Check if hit a trap
         if (isTrappedPosition(newPosition)) {
             await animateMove(position, newPosition);
-            soundManager.play('wrong');
+            soundManager.play('broken');
             showMessage('Hit a trap! Try again.', 'error');
             setRunning(false);
             setButtonsEnabled(true);

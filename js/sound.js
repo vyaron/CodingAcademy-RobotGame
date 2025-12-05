@@ -5,7 +5,9 @@ class SoundManager {
             btn: new Audio('./sound/btn.mp3'),
             right: new Audio('./sound/right.mp3'),
             wrong: new Audio('./sound/wrong.mp3'),
-            coins: new Audio('./sound/coins.mp3')
+            coins: new Audio('./sound/coins.mp3'),
+            drop: new Audio('./sound/drop.mp3'),
+            broken: new Audio('./sound/broken.mp3')
         };
         
         // Set volume levels

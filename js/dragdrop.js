@@ -1,5 +1,6 @@
 import { state, addInstruction, removeInstruction } from './state.js';
 import { updateInstructionSlots, updateMovesDisplay } from './ui.js';
+import { soundManager } from './sound.js';
 
 let draggedElement = null;
 let touchStartX = 0;
@@ -123,6 +124,7 @@ function handleTouchEnd(e) {
         
         // Add instruction if slot is empty or within bounds
         if (index < state.instructions.length + 1) {
+            soundManager.play('drop');
             if (state.instructions[index]) {
                 // Replace existing instruction
                 state.instructions[index] = direction;
@@ -180,6 +182,7 @@ function handleDrop(e) {
     
     // Add instruction if slot is empty or within bounds
     if (index < state.instructions.length + 1) {
+        soundManager.play('drop');
         if (state.instructions[index]) {
             // Replace existing instruction
             state.instructions[index] = direction;
