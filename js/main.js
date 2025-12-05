@@ -35,6 +35,7 @@ function loadLevel(levelIndex) {
     currentLevelData = level;
     setCurrentLevel(level);
     resetState();
+    state.currentLevel = levelIndex;
     
     // Update UI
     renderGrid(level);
@@ -45,6 +46,9 @@ function loadLevel(levelIndex) {
     clearVisitedCells();
     clearMessage();
     setCurrentMaxMoves(level.maxMoves);
+    
+    // Update level selector buttons
+    updateLevelSelector(levelIndex);
     
     // Initialize drag and drop
     initDragAndDrop(level);
@@ -89,6 +93,24 @@ function setupEventListeners() {
         hideGameCompleteModal();
         restartGame();
         loadLevel(0);
+    });
+    
+    // Level selector buttons
+    document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const levelIndex = parseInt(btn.dataset.level);
+            loadLevel(levelIndex);
+        });
+    });
+}
+
+function updateLevelSelector(currentLevelIndex) {
+    document.querySelectorAll('.level-btn').forEach((btn, index) => {
+        if (parseInt(btn.dataset.level) === currentLevelIndex) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
     });
 }
 

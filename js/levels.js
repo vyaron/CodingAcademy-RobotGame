@@ -13,17 +13,6 @@ export const levels = [
     },
     {
         id: 2,
-        name: "Turn Around",
-        description: "Navigate around to the goal",
-        gridSize: 5,
-        maxMoves: 4,
-        robot: { x: 0, y: 0 },
-        goal: { x: 0, y: 2 },
-        walls: [],
-        traps: []
-    },
-    {
-        id: 3,
         name: "Wall Blocker",
         description: "Avoid the wall!",
         gridSize: 5,
@@ -36,11 +25,11 @@ export const levels = [
         traps: []
     },
     {
-        id: 4,
+        id: 3,
         name: "Maze Runner",
         description: "Navigate through the walls",
         gridSize: 5,
-        maxMoves: 9,
+        maxMoves: 12,
         robot: { x: 0, y: 0 },
         goal: { x: 4, y: 4 },
         walls: [
@@ -54,11 +43,11 @@ export const levels = [
         traps: []
     },
     {
-        id: 5,
+        id: 4,
         name: "Danger Zone",
         description: "Avoid the traps!",
         gridSize: 5,
-        maxMoves: 6,
+        maxMoves: 8,
         robot: { x: 0, y: 2 },
         goal: { x: 4, y: 2 },
         walls: [],
@@ -69,22 +58,23 @@ export const levels = [
         ]
     },
     {
-        id: 6,
+        id: 5,
         name: "Complex Path",
         description: "The ultimate challenge!",
         gridSize: 5,
-        maxMoves: 10,
+        maxMoves: 8,
         robot: { x: 0, y: 0 },
         goal: { x: 4, y: 4 },
         walls: [
-            { x: 1, y: 1 },
+            { x: 2, y: 0 },
             { x: 2, y: 1 },
-            { x: 3, y: 1 },
-            { x: 3, y: 3 }
+            { x: 2, y: 3 },
+            { x: 2, y: 4 },
         ],
         traps: [
-            { x: 1, y: 3 },
-            { x: 2, y: 3 }
+            { x: 0, y: 1 },
+            { x: 0, y: 2 },
+            { x: 4, y: 2 },
         ]
     }
 ];

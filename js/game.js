@@ -17,7 +17,10 @@ export async function executeProgram() {
     setButtonsEnabled(false);
     showMessage('Running program...', 'info');
     
-    let position = { ...state.robotPosition };
+    // Always start from the original robot position
+    let position = { x: currentLevel.robot.x, y: currentLevel.robot.y };
+    updateRobotPosition(position.x, position.y, false);
+    await sleep(200);
     
     for (let i = 0; i < state.instructions.length; i++) {
         const instruction = state.instructions[i];
@@ -28,6 +31,9 @@ export async function executeProgram() {
             showMessage('Hit a wall! Try again.', 'error');
             setRunning(false);
             setButtonsEnabled(true);
+            // Reset to starting position
+            await sleep(500);
+            updateRobotPosition(currentLevel.robot.x, currentLevel.robot.y, false);
             return false;
         }
         
@@ -37,6 +43,9 @@ export async function executeProgram() {
             showMessage('Hit a trap! Try again.', 'error');
             setRunning(false);
             setButtonsEnabled(true);
+            // Reset to starting position
+            await sleep(500);
+            updateRobotPosition(currentLevel.robot.x, currentLevel.robot.y, false);
             return false;
         }
         
@@ -58,6 +67,9 @@ export async function executeProgram() {
     showMessage('Not quite there! Try adding more moves.', 'error');
     setRunning(false);
     setButtonsEnabled(true);
+    // Reset to starting position
+    await sleep(500);
+    updateRobotPosition(currentLevel.robot.x, currentLevel.robot.y, false);
     return false;
 }
 

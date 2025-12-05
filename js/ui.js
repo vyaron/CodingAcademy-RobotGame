@@ -18,7 +18,10 @@ export function renderGrid(level) {
             // Check if this cell is the robot
             if (x === level.robot.x && y === level.robot.y) {
                 cell.classList.add('robot');
-                cell.textContent = '🤖';
+                const robotSpan = document.createElement('span');
+                robotSpan.className = 'robot-emoji';
+                robotSpan.textContent = '🤖';
+                cell.appendChild(robotSpan);
                 setRobotPosition(x, y);
             }
             
@@ -48,31 +51,32 @@ export function renderGrid(level) {
 export function updateRobotPosition(x, y, animate = true) {
     const cells = document.querySelectorAll('.cell');
     
+    // Remove all robot emojis and robot class from all cells
     cells.forEach(cell => {
-        if (cell.classList.contains('robot')) {
-            cell.classList.remove('robot');
-            cell.textContent = '';
-            if (!cell.classList.contains('goal') && !cell.classList.contains('wall') && !cell.classList.contains('trap')) {
-                cell.classList.add('visited');
+        cell.classList.remove('robot');
+        const robotSpan = cell.querySelector('.robot-emoji');
+        if (robotSpan) robotSpan.remove();
+        
+        // Mark non-special cells as visited
+        if (!cell.classList.contains('goal') && !cell.classList.contains('wall') && !cell.classList.contains('trap')) {
+            if (cell.dataset.x !== undefined && cell.dataset.y !== undefined) {
+                const cellX = parseInt(cell.dataset.x);
+                const cellY = parseInt(cell.dataset.y);
+                if (cellX === state.robotPosition.x && cellY === state.robotPosition.y) {
+                    cell.classList.add('visited');
+                }
             }
         }
     });
     
+    // Add robot to new position
     const newCell = document.querySelector(`.cell[data-x="${x}"][data-y="${y}"]`);
     if (newCell && !newCell.classList.contains('wall')) {
-        if (animate) {
-            newCell.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-                newCell.style.transform = 'scale(1)';
-            }, 200);
-        }
-        
-        if (!newCell.classList.contains('goal')) {
-            newCell.classList.add('robot');
-            newCell.textContent = '🤖';
-        } else {
-            newCell.textContent = '🤖🎯';
-        }
+        newCell.classList.add('robot');
+        const robotSpan = document.createElement('span');
+        robotSpan.className = 'robot-emoji';
+        robotSpan.textContent = '🤖';
+        newCell.appendChild(robotSpan);
     }
     
     setRobotPosition(x, y);
