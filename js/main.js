@@ -1,5 +1,6 @@
 import { state, resetState, clearInstructions, nextLevel, restartGame } from './state.js';
 import { getLevel, getTotalLevels } from './levels.js';
+import { soundManager } from './sound.js';
 import { 
     renderGrid, 
     renderInstructionSlots, 
@@ -59,6 +60,7 @@ function loadLevel(levelIndex) {
 function setupEventListeners() {
     // Run button
     document.getElementById('run-btn').addEventListener('click', async () => {
+        soundManager.play('btn');
         const success = await executeProgram();
         
         if (success) {
@@ -70,11 +72,13 @@ function setupEventListeners() {
     
     // Reset button
     document.getElementById('reset-btn').addEventListener('click', () => {
+        soundManager.play('btn');
         loadLevel(state.currentLevel);
     });
     
     // Clear button
     document.getElementById('clear-btn').addEventListener('click', () => {
+        soundManager.play('btn');
         clearInstructions();
         updateInstructionSlots();
         updateMovesDisplay(currentLevelData.maxMoves);
@@ -83,6 +87,7 @@ function setupEventListeners() {
     
     // Next level button
     document.getElementById('next-level-btn').addEventListener('click', () => {
+        soundManager.play('btn');
         hideLevelCompleteModal();
         nextLevel();
         loadLevel(state.currentLevel);
@@ -90,6 +95,7 @@ function setupEventListeners() {
     
     // Restart button (game complete)
     document.getElementById('restart-btn').addEventListener('click', () => {
+        soundManager.play('btn');
         hideGameCompleteModal();
         restartGame();
         loadLevel(0);
@@ -98,6 +104,7 @@ function setupEventListeners() {
     // Level selector buttons
     document.querySelectorAll('.level-btn').forEach(btn => {
         btn.addEventListener('click', () => {
+            soundManager.play('btn');
             const levelIndex = parseInt(btn.dataset.level);
             loadLevel(levelIndex);
         });

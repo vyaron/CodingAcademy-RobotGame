@@ -1,5 +1,6 @@
 import { state, setRunning, incrementMoveCount } from './state.js';
 import { updateRobotPosition, showMessage, setButtonsEnabled } from './ui.js';
+import { soundManager } from './sound.js';
 
 let currentLevel = null;
 
@@ -28,6 +29,7 @@ export async function executeProgram() {
         
         // Check if move is valid
         if (!isValidPosition(newPosition)) {
+            soundManager.play('wrong');
             showMessage('Hit a wall! Try again.', 'error');
             setRunning(false);
             setButtonsEnabled(true);
@@ -40,6 +42,7 @@ export async function executeProgram() {
         // Check if hit a trap
         if (isTrappedPosition(newPosition)) {
             await animateMove(position, newPosition);
+            soundManager.play('wrong');
             showMessage('Hit a trap! Try again.', 'error');
             setRunning(false);
             setButtonsEnabled(true);
@@ -56,6 +59,7 @@ export async function executeProgram() {
         
         // Check if reached goal
         if (isGoalPosition(position)) {
+            soundManager.play('coins');
             showMessage('🎉 Success!', 'success');
             setRunning(false);
             setButtonsEnabled(true);
@@ -64,6 +68,7 @@ export async function executeProgram() {
     }
     
     // Completed all moves but didn't reach goal
+    soundManager.play('wrong');
     showMessage('Not quite there! Try adding more moves.', 'error');
     setRunning(false);
     setButtonsEnabled(true);
